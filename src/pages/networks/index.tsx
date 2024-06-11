@@ -1,4 +1,4 @@
-import {FormEvent, useState } from 'react'
+import {FormEvent, useState, useEffect } from 'react'
 import { Header } from "../../components/Header";
 import { Input } from "../../components/Input";
 
@@ -12,6 +12,21 @@ import {
 export function Networks(){
   const [facebook, setFacebook] = useState("")
   const [linkedin, setLinkedin] = useState("")
+
+  useEffect(() => {
+    function loadLinks(){
+      const docRef = doc(db, "social", "link")
+      getDoc(docRef)
+      .then((snapshot) => {
+        if(snapshot.data() !== undefined){
+          setFacebook(snapshot.data()?.facebook)
+          setLinkedin(snapshot.data()?.linkedin)
+        }
+      })
+    }
+
+    loadLinks();
+  }, [])
 
   function handleRegister(e: FormEvent){
     e.preventDefault();

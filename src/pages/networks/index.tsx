@@ -10,7 +10,7 @@ import {
 } from 'firebase/firestore'
 
 export function Networks(){
-  const [facebook, setFacebook] = useState("")
+  const [github, setGitHub] = useState("")
   const [linkedin, setLinkedin] = useState("")
 
   useEffect(() => {
@@ -19,7 +19,7 @@ export function Networks(){
       getDoc(docRef)
       .then((snapshot) => {
         if(snapshot.data() !== undefined){
-          setFacebook(snapshot.data()?.facebook)
+          setGitHub(snapshot.data()?.github)
           setLinkedin(snapshot.data()?.linkedin)
         }
       })
@@ -32,7 +32,7 @@ export function Networks(){
     e.preventDefault();
 
     setDoc(doc(db, "social", "link"),{
-      facebook: facebook,
+      github: github,
       linkedin: linkedin,
     })
     .then(() => {
@@ -50,12 +50,12 @@ export function Networks(){
       <h1 className=" text-white text-2xl font-medium mt-8 mb-4">Minhas redes Sociais</h1>
 
       <form className=" flex flex-col max-w-xl w-full" onSubmit={handleRegister}>
-        <label className=" text-white font-medium mt-2 mb-2">Link do facebook</label>
+        <label className=" text-white font-medium mt-2 mb-2">Link do Github</label>
         <Input
           type="url"
-          placeholder="Digite a url do facebook..."
-          value={facebook}
-          onChange={ (e) => setFacebook(e.target.value) }
+          placeholder="Digite a url do Github..."
+          value={github}
+          onChange={ (e) => setGitHub(e.target.value) }
         />
 
         <label className=" text-white font-medium mt-2 mb-2">Link do Linkedin</label>

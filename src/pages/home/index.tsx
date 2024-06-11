@@ -1,7 +1,7 @@
 import {useEffect, useState } from 'react'
 import { Social } from '../../components/Social'
 
-import { FaFacebook, FaInstagram, FaLinkedin, FaYoutube } from 'react-icons/fa'
+import { FaGithub, FaLinkedin, FaCode } from 'react-icons/fa'
 import { db } from '../../services/firebaseConnection'
 import { 
   getDocs,
@@ -12,6 +12,7 @@ import {
   getDoc,
 } from 'firebase/firestore'
 
+
 interface LinkProps{
   id: string;
   name: string;
@@ -21,8 +22,9 @@ interface LinkProps{
 }
 
 interface SocialLinksProps{
-  facebook: string;
+  github: string;
   linkedin: string;
+  portfólio: string;
 }
 
 export function Home(){
@@ -66,8 +68,9 @@ export function Home(){
     .then((snapshot) => {
       if(snapshot.data() !== undefined){
         setSocialLinks({
-          facebook: snapshot.data()?.facebook,
-          linkedin: snapshot.data()?.linkedin, 
+          github: snapshot.data()?.github,
+          linkedin: snapshot.data()?.linkedin,
+          portfólio: snapshot.data()?.portfolio, 
         })
       }
     })
@@ -97,12 +100,16 @@ export function Home(){
 
         { socialLinks && Object.keys(socialLinks).length > 0 && (
           <footer className="flex justify-center gap-3 my-4">
-          <Social url={socialLinks?.facebook}>
-            <FaFacebook size={35} color="#FFF" />
+          <Social url={socialLinks?.github}>
+            <FaGithub size={35} color="#FFF" />
           </Social>
 
           <Social url={socialLinks?.linkedin}>
             <FaLinkedin size={35} color="#FFF" />
+          </Social>
+
+          <Social url="https://portfolio-jeanluccabueno.vercel.app/">
+            <FaCode size={35} color="#FFF" />
           </Social>
         </footer>
         )}
